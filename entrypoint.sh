@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+CERT_DIR="${CERT_DIR:?Missing CERT_DIR}"
+HAPROXY_CFG="${HAPROXY_CFG:?Missing HAPROXY_CFG}"
+HAPROXY_CONTAINER="${HAPROXY_CONTAINER:?Missing HAPROXY_CONTAINER}"
+
+echo "[ENTRYPOINT] Cert directory: $CERT_DIR"
+echo "[ENTRYPOINT] HAProxy config: $HAPROXY_CFG"
+echo "[ENTRYPOINT] HAProxy container: $HAPROXY_CONTAINER"
+
+exec /watcher.sh "$CERT_DIR" "$HAPROXY_CFG" "$HAPROXY_CONTAINER"    
