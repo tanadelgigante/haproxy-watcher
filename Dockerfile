@@ -8,6 +8,6 @@ COPY watcher.sh /watcher.sh
 RUN chmod +x /entrypoint.sh /watcher.sh
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD ps aux | grep -q '[i]notifywait' || exit 1
+    CMD ps aux | grep -q 'watcher.sh' || exit 1
 
 ENTRYPOINT ["/entrypoint.sh"]
