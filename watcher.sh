@@ -10,15 +10,22 @@ echo "[WATCHER] Directory certificati: $CERT_DIR"
 # --- 1. Parsing haproxy.cfg ---
 echo "[WATCHER] Parsing HAProxy config: $HAPROXY_CFG"
 
-CERT_PATHS=$(grep -oP 'crt\s+\K\S+' "$HAPROXY_CFG")
+CERT_PATHS=$(awk '
+  /crt[[:space:]]/ {
+    for (i=1; i<=NF; i++) {
+      if ($i == "crt") {
+        print $(i+1)
+      }
+    }
+  }
+' "$HAPROXY_CFG")
 
 if [ -z "$CERT_PATHS" ]; then
     echo "[WATCHER] Nessun certificato trovato in haproxy.cfg"
-    exit 1
+else
+    echo "[WATCHER] Certificati trovati:"
+    echo "$CERT_PATHS"
 fi
-
-echo "[WATCHER] Certificati trovati:"
-echo "$CERT_PATHS"
 
 # --- 2. Funzione per generare PEM ---
 generate_pem() {
