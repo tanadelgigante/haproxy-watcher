@@ -30,9 +30,9 @@ fi
 # --- 2. Funzione per generare PEM ---
 generate_pem() {
     local base="$1"
-    local key="$base.key"
-    local crt="$base.crt"
-    local pem="$base.pem"
+    local key="$base/$base.key"
+    local crt="$base/$base.crt"
+    local pem="$base/$base.pem"
 
     echo "[WATCHER] Genero PEM per $base"
 
